@@ -22,6 +22,10 @@ ifneq ($(shell test -d $(makefile_dir)/.virtualenv; echo $$?),0)
 	@virtualenv -p python3 $(makefile_dir)/.virtualenv
 	@$(pip) install -r $(makefile_dir)/requirements.txt
 endif
+ifneq ($(shell test -d .run; echo $$?),0)
+	@echo 'Creating .run folder'
+	@mkdir -p .run
+endif
 
 clear:
 	@echo 'Removing virtualenv.'
