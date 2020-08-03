@@ -99,6 +99,8 @@ run: docker-pull
 		-e AWS_PROFILE \
 		-e AWSU_EXPIRES \
 		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
 		-v $(HOME)/.terraform.d:/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
