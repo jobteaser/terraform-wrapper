@@ -23,6 +23,16 @@ with_azure_deps := $(shell grep -i 'install_azure_dependencies' $(conf_dir)/conf
 .PHONY := check clean clear renew work
 .DEFAULT_GOAL := work
 
+# Detecting the OS to get the right terraform binaries into the container.
+TF_BIN_DIR := $(HOME)/.terraform.d
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	TF_BIN_DIR := $(HOME)/.terraform.d
+endif
+ifeq ($(UNAME_S),Darwin)
+	TF_BIN_DIR := $(HOME)/.terraform.d-linux
+	$(shell mkdir -p $(TF_BIN_DIR))
+endif
 
 GIT_REPO_PATH := $(shell git rev-parse --show-toplevel)
 
