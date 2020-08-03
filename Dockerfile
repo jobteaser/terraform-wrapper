@@ -3,6 +3,7 @@ FROM python:3.8-slim
 RUN apt-get update && apt-get install -y \
     apt-utils \
     software-properties-common \
+    openssh-client \
     git \
     vim \
     --no-install-recommends && \
