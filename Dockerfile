@@ -24,4 +24,3 @@ RUN pip install -r requirements.txt
 ENV PATH=/app/bin:$PATH
 WORKDIR $HOME/repo
 ENTRYPOINT ["/app/bin/tfwrapper"]
-CMD ["plan"]
