@@ -118,11 +118,13 @@ run: docker-pull $(TF_BIN_DIR)
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
+		--entrypoint=/bin/bash \
 		jobteaser/tfwrapper:latest \
-		/bin/bash
 
 plan: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
+		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
+		-e SSH_AUTH_SOCK=/ssh_agent \
 		-e ASSUMED_ROLE \
 		-e AWS_ACCESS_KEY_ID \
 		-e AWS_SECRET_KEY \
@@ -142,6 +144,8 @@ plan: docker-pull $(TF_BIN_DIR)
 
 apply: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
+		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
+		-e SSH_AUTH_SOCK=/ssh_agent \
 		-e ASSUMED_ROLE \
 		-e AWS_ACCESS_KEY_ID \
 		-e AWS_SECRET_KEY \
@@ -161,6 +165,8 @@ apply: docker-pull $(TF_BIN_DIR)
 
 destroy: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
+		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
+		-e SSH_AUTH_SOCK=/ssh_agent \
 		-e ASSUMED_ROLE \
 		-e AWS_ACCESS_KEY_ID \
 		-e AWS_SECRET_KEY \
@@ -180,6 +186,8 @@ destroy: docker-pull $(TF_BIN_DIR)
 
 fmt: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
+		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
+		-e SSH_AUTH_SOCK=/ssh_agent \
 		-e ASSUMED_ROLE \
 		-e AWS_ACCESS_KEY_ID \
 		-e AWS_SECRET_KEY \
