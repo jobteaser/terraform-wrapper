@@ -423,6 +423,27 @@ The following file structure is enforced:
 
 ## Usage
 
+### Using docker
+
+Image is available here: `jobteaser/tfwrapper`
+
+Available Makefile targets are:
+- `init`
+- `plan`
+- `apply`
+- `fmt`
+- `destroy`
+- `run`: Provides a shell inside the docker container to use tfwrapper as you would outside of it.
+- `docker-build`: build the tfwrapper docker image
+- `docker-push`: push the tfwrapper docker image
+
+
+Alias to use that where possible: (you can add this in your prefered shell)
+`alias tfw='make -C $(git rev-parse --show-toplevel)'`
+
+#### Technical Debt
+- Currently does not support `awsu` and yubikeys
+
 ### tfwrapper activation
 
 ```bash
