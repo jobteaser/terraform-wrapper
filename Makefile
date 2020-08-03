@@ -102,6 +102,6 @@ run: docker-pull
 		-v $(HOME)/.aws:/home/user/.aws \
 		-v $(HOME)/.terraform.d:/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
-		-w=$(pwd) \
+		-w $(pwd) \
 		jobteaser/tfwrapper \
 		/bin/bash
