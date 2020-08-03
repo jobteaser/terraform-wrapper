@@ -121,6 +121,27 @@ run: docker-pull $(TF_BIN_DIR)
 		--entrypoint=/bin/bash \
 		jobteaser/tfwrapper:latest
 
+init: docker-pull $(TF_BIN_DIR)
+	@docker run --rm -ti \
+		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
+		-e SSH_AUTH_SOCK=/ssh_agent \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w="$(PWD)" \
+		jobteaser/tfwrapper:latest init
+
 plan: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
 		-v $$SSH_AUTH_SOCK:/ssh_agent:ro \
