@@ -1,5 +1,15 @@
 FROM python:3.8-slim
 
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    software-properties-common \
+    git \
+    vim \
+    --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
 # Make a user
 ENV HOME /home/user
 RUN useradd --create-home --home-dir $HOME user \
