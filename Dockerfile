@@ -23,4 +23,5 @@ ADD --chown=user:user . /app/
 RUN pip install -r requirements.txt
 ENV PATH=/app/bin:$PATH
 WORKDIR $HOME/repo
-CMD ["tfwrapper"]
+ENTRYPOINT ["/app/bin/tfwrapper"]
+CMD ["plan"]
