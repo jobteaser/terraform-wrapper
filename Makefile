@@ -30,10 +30,12 @@ ifeq ($(UNAME_S),Linux)
 endif
 ifeq ($(UNAME_S),Darwin)
 	TF_BIN_DIR := $(HOME)/.terraform.d-linux
-	$(shell mkdir -p $(TF_BIN_DIR))
 endif
 
 GIT_REPO_PATH := $(shell git rev-parse --show-toplevel)
+
+$(TF_BIN_DIR):
+	@mkdir -p $(TF_BIN_DIR)
 
 check:
 ifeq ($(shell test $(python_version_minor) -le 4 && echo true),true)
