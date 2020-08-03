@@ -92,13 +92,14 @@ endif
 docker-build:
 	@echo 'building tfwrapper container ("$(wrapper_bin)")'
 	@docker build -t jobteaser/tfwrapper:latest .
+
 docker-push:
 	@echo 'pushing tfwrapper image'
-	@docker push jobteaser:tfwrapper:latest
+	@docker push jobteaser/tfwrapper:latest
+
 docker-pull:
 	@echo 'downloading tfwrapper image'
-	# @docker pull jobteaser:tfwrapper:latest
-#		-v $(HOME):/home/user \
+	@docker pull jobteaser/tfwrapper:latest
 
 run: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
@@ -119,3 +120,79 @@ run: docker-pull $(TF_BIN_DIR)
 		-w="$(PWD)" \
 		jobteaser/tfwrapper:latest \
 		/bin/bash
+
+plan: docker-pull $(TF_BIN_DIR)
+	@docker run --rm -ti \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w="$(PWD)" \
+		jobteaser/tfwrapper:latest plan
+
+apply: docker-pull $(TF_BIN_DIR)
+	@docker run --rm -ti \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w="$(PWD)" \
+		jobteaser/tfwrapper:latest apply
+
+destroy: docker-pull $(TF_BIN_DIR)
+	@docker run --rm -ti \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w="$(PWD)" \
+		jobteaser/tfwrapper:latest destroy
+
+fmt: docker-pull $(TF_BIN_DIR)
+	@docker run --rm -ti \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
+		-v $(HOME)/.ssh:/home/user/.ssh \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w="$(PWD)" \
+		jobteaser/tfwrapper:latest fmt
