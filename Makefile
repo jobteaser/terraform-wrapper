@@ -119,7 +119,7 @@ run: docker-pull $(TF_BIN_DIR)
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
 		--entrypoint=/bin/bash \
-		jobteaser/tfwrapper:latest \
+		jobteaser/tfwrapper:latest
 
 plan: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
