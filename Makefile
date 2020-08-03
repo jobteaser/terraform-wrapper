@@ -24,7 +24,6 @@ with_azure_deps := $(shell grep -i 'install_azure_dependencies' $(conf_dir)/conf
 .DEFAULT_GOAL := work
 
 # Detecting the OS to get the right terraform binaries into the container.
-TF_BIN_DIR := $(HOME)/.terraform.d
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	TF_BIN_DIR := $(HOME)/.terraform.d
@@ -49,7 +48,7 @@ endif
 	@python3 -m venv $(makefile_dir)/.virtualenv
 
 $(makefile_dir)/.zshtempdir: check 
-	@echo 'Setting up zshtempdir.'
+	q@echo 'Setting up zshtempdir.'
 	@mkdir -p $(makefile_dir)/.zshtempdir
 	@cp -f $(HOME)/.zshrc $(makefile_dir)/.zshtempdir/.zshrc
 ifeq ($(use_local_azure_session_directory),true)
@@ -98,7 +97,7 @@ docker-pull:
 	# @docker pull jobteaser:tfwrapper:latest
 #		-v $(HOME):/home/user \
 
-run: docker-pull
+run: docker-pull $(TF_BIN_DIR)
 	@docker run --rm -ti \
 		-e ASSUMED_ROLE \
 		-e AWS_ACCESS_KEY_ID \
@@ -112,7 +111,7 @@ run: docker-pull
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
-		-v $(HOME)/.terraform.d:/home/user/.terraform.d \
+		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
 		jobteaser/tfwrapper:latest \
