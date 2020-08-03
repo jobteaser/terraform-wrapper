@@ -8,7 +8,7 @@ RUN useradd --create-home --home-dir $HOME user \
 
 WORKDIR /app
 USER user
-ADD . /app/
+ADD --chown=user:user . /app/
 RUN pip install -r requirements.txt
 ENV PATH=/app/bin:$PATH
 WORKDIR $HOME/repo

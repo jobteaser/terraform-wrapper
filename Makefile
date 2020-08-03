@@ -50,7 +50,7 @@ endif
 	@python3 -m venv $(makefile_dir)/.virtualenv
 
 $(makefile_dir)/.zshtempdir: check 
-	q@echo 'Setting up zshtempdir.'
+	@echo 'Setting up zshtempdir.'
 	@mkdir -p $(makefile_dir)/.zshtempdir
 	@cp -f $(HOME)/.zshrc $(makefile_dir)/.zshtempdir/.zshrc
 ifeq ($(use_local_azure_session_directory),true)
@@ -71,6 +71,7 @@ clean clear: check
 	@rm -Rf $(makefile_dir)/.virtualenv
 	@echo 'Removing zsh tempdir.'
 	@rm -Rf $(makefile_dir)/.zshtempdir
+	@rm -Rf $(TF_BIN_DIR)
 
 renew: check clear setup
 	@echo 'Renew done.'
