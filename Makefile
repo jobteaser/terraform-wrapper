@@ -23,6 +23,9 @@ with_azure_deps := $(shell grep -i 'install_azure_dependencies' $(conf_dir)/conf
 .PHONY := check clean clear renew work
 .DEFAULT_GOAL := work
 
+
+GIT_REPO_PATH := $(shell git rev-parse --show-toplevel)
+
 check:
 ifeq ($(shell test $(python_version_minor) -le 4 && echo true),true)
 	$(error Python 3 too old, use Python 3.5 or greater.)
@@ -73,3 +76,30 @@ else
 endif
 endif
 	@echo 'terraform-wrapper env exited. ("$(wrapper_bin)")'
+
+docker-build:
+	@echo 'building tfwrapper container ("$(wrapper_bin)")'
+	@docker build -t jobteaser/tfwrapper:latest .
+docker-push:
+	@echo 'pushing tfwrapper image'
+	@docker push jobteaser:tfwrapper:latest
+docker-pull:
+	@echo 'downloading tfwrapper image'
+	# @docker pull jobteaser:tfwrapper:latest
+#		-v $(HOME):/home/user \
+
+run: docker-pull
+	@docker run --rm -ti \
+		-e ASSUMED_ROLE \
+		-e AWS_ACCESS_KEY_ID \
+		-e AWS_SECRET_KEY \
+		-e AWS_SECRET_ACCESS_KEY \
+		-e AWS_SESSION_TOKEN \
+		-e AWS_SECURITY_TOKEN \
+		-e AWS_PROFILE \
+		-e AWSU_EXPIRES \
+		$(DOCKER_DEVICES_OPTIONS) \
+		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(GIT_REPO_PATH):/home/user/repo \
+		jobteaser/tfwrapper \
+		/bin/bash
