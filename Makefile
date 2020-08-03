@@ -100,6 +100,8 @@ run: docker-pull
 		-e AWSU_EXPIRES \
 		$(DOCKER_DEVICES_OPTIONS) \
 		-v $(HOME)/.aws:/home/user/.aws \
-		-v $(GIT_REPO_PATH):/home/user/repo \
+		-v $(HOME)/.terraform.d:/home/user/.terraform.d \
+		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
+		-w=$(pwd) \
 		jobteaser/tfwrapper \
 		/bin/bash

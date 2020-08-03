@@ -10,6 +10,6 @@ WORKDIR /app
 USER user
 ADD . /app/
 RUN pip install -r requirements.txt
-
-WORKDIR $HOME
+ENV PATH=/app/bin:$PATH
+WORKDIR $HOME/repo
 #CMD ["/home/user/Telegram"]
