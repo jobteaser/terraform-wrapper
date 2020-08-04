@@ -19,6 +19,7 @@
     - [How to migrate from one backend to another for state centralization](#how-to-migrate-from-one-backend-to-another-for-state-centralization)
   - [Stacks file structure](#stacks-file-structure)
   - [Usage](#usage)
+    - [Using docker](#using-docker)
     - [tfwrapper activation](#tfwrapper-activation)
     - [Stack bootstrap](#stack-bootstrap)
     - [Working on stacks](#working-on-stacks)
