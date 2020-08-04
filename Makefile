@@ -115,6 +115,7 @@ run: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
@@ -137,6 +138,7 @@ init: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
@@ -158,6 +160,7 @@ plan: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
@@ -179,6 +182,7 @@ apply: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
@@ -200,6 +204,7 @@ destroy: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
@@ -221,6 +226,7 @@ fmt: docker-pull $(TF_BIN_DIR)
 		-v $(HOME)/.gitconfig:/home/user/.gitconfig \
 		-v $(HOME)/.ssh:/home/user/.ssh \
 		-v $(HOME)/.aws:/home/user/.aws \
+		-v $(HOME)/.kube:/home/user/.kube \
 		-v $(TF_BIN_DIR):/home/user/.terraform.d \
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
