@@ -27,6 +27,7 @@ with_azure_deps := $(shell grep -i 'install_azure_dependencies' $(conf_dir)/conf
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	TF_BIN_DIR := $(HOME)/.terraform.d
+	DOCKER_DEVICES_OPTIONS := --device=/dev/ttyUSB0
 endif
 ifeq ($(UNAME_S),Darwin)
 	TF_BIN_DIR := $(HOME)/.terraform.d-linux
@@ -231,3 +232,4 @@ fmt: docker-pull $(TF_BIN_DIR)
 		-v $(GIT_REPO_PATH):$(GIT_REPO_PATH) \
 		-w="$(PWD)" \
 		jobteaser/tfwrapper:latest fmt
+
