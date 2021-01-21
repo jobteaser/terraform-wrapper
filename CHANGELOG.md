@@ -1,3 +1,44 @@
+# 7.10.0 (15/01/2021)
+
+UPDATES:
+
+  * TER-441: Use hashicorp API to locate terraform versions
+  * TER-347: Update dependencies
+
+FIXED:
+
+  * TER-465: Wrapper cannot find terraform 0.12.30 & 0.13.6
+
+# 7.9.5 (08/01/2021)
+
+UPDATES:
+
+  * TER-464: Pass state.yml configuration object to state.j2.tf template
+
+# 7.9.4 (19/10/2020)
+
+FIXED:
+
+  * TER-463: Fix yaml unsafe load warning when using Azure profile
+
+# 7.9.3 (29/09/2020)
+
+FIXED:
+
+  * TER-458: Fix `terraform version` ouput matching and parse
+
+# 7.9.2 (17/09/2020)
+
+UPDATES:
+
+  * TER-439: Bump `azure-cli` to latest `2.11.1` and upgrade AWS/boto dependencies
+
+# 7.9.1 (28/07/2020)
+
+FIXED:
+
+  * TER-456: Fix env for "each" process when using `foreach` (we must extend current `os.environ`)
+
 # 7.9.0 (30/06/2020)
 
 UPDATES:

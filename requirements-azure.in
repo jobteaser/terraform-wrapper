@@ -1,3 +1,4 @@
+-r requirements.in
 azure-common
-azure-cli==2.6.0 # Pinned version for now
-azure-mgmt-storage==9.0.0
+azure-cli
+azure-mgmt-storage

@@ -346,6 +346,9 @@ azure:
     subscription_uid: 'xxxxxxx' # the Azure account to use for state storage
     resource_group_name: 'tfstates-xxxxx-rg' # The Azure resource group with state storage
     storage_account_name: 'tfstatesxxxxx'
+
+backend_parameters: # Parameters or options which can be used by `state.j2.tf` template file
+  state_snaphot: "false" # Example of Azure storage backend option
 ```
 
 Note: the first backend will be the default one for stacks not defining `state_backend_type`.
@@ -613,7 +616,7 @@ In addition to `black --check`, code is also checked with:
 
 This [README's table of content](#table-of-contents) is formatted with [md_toc](https://github.com/frnmst/md-toc).
 
-Keep in mind to update it with `md_toc --in-place README.md github`.
+Keep in mind to update it with `md_toc --in-place github README.md`.
 
 ## Using terraform development builds
 
