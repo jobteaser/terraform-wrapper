@@ -47,9 +47,10 @@ endif
 
 setup: check $(makefile_dir)/.virtualenv
 	@$(pip) install -U pip
-	@$(pip) install -r $(makefile_dir)/requirements.txt
 ifeq ($(with_azure_deps),true)
 	@$(pip) install -r $(makefile_dir)/requirements-azure.txt
+else
+	@$(pip) install -r $(makefile_dir)/requirements.txt
 endif
 
 clean clear: check
